@@ -5,10 +5,10 @@ using System.Text;
 
 namespace CrashDive_v1_6_13.objects
 {
-    class Object
+    public class Cell
     {
         int ID, X, Y;
-        public Object(int id, int x, int y)
+        public Cell(int id, int x, int y)
         {
             this.ID = id;
             this.X = x;

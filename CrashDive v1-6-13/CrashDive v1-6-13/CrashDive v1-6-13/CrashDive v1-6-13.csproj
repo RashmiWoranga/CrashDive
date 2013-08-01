@@ -107,11 +107,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Network_Communication.cs" />
     <Compile Include="objects\Brick.cs" />
     <Compile Include="objects\CoinPile.cs" />
     <Compile Include="objects\LifePack.cs" />
     <Compile Include="objects\Map.cs" />
-    <Compile Include="objects\Object.cs" />
+    <Compile Include="objects\Cell.cs" />
     <Compile Include="objects\Player.cs" />
     <Compile Include="objects\Stone.cs" />
     <Compile Include="objects\Treasure.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="UI\BasicData.cs" />
     <Compile Include="UI\Reader.cs" />
+    <Compile Include="UI\TankBattle.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

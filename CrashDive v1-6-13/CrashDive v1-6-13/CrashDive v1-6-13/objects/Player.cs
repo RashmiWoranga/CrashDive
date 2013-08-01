@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CrashDive_v1_6_13.objects
 {
-    class Player
+    public class Player
     {
 
         private int x,y,id,points, coins, health, direction;
@@ -71,6 +71,33 @@ namespace CrashDive_v1_6_13.objects
         public void setPoints(int points)
         {
             this.points = points;
+        }
+        public int getID()
+        {
+            return id;
+        }
+
+        public void setID(int id)
+        {
+            this.id = id;
+        }
+        public int getY()
+        {
+            return y;
+        }
+
+        public void setY(int y)
+        {
+            this.y = y;
+        }
+        public int getX()
+        {
+            return x;
+        }
+
+        public void setxPoints(int x)
+        {
+            this.x = x;
         }
         
     }

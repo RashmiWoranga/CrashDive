@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using CrashDive_v1_6_13.objects;
+using CrashDive_v1_6_13.UI;
 
 namespace CrashDive_v1_6_13
 {
@@ -18,74 +20,106 @@ namespace CrashDive_v1_6_13
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        GraphicsDevice device;
+        Texture2D backgroundTexture;
+        Texture2D foregroundTexture;
+        TankBattle tankBattle;
+        Reader reader;
+        Cell[,] map;
+        Player[] players;
+        Map battle;
+        int length = 10, count=5; // cell width and number of players
+        Network_Communication Connection;
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            map = new Cell[length,length];
+            players = new Player[count];
+            battle = new Map(length, count);
+            reader = new Reader(battle);
+            Connection = new Network_Communication(this,reader);
+            tankBattle = new TankBattle(this, battle);
+            
         }
-
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+        
+        /*
+         * ID = 100 Coin pile
+         * ID = 200 Life Pack
+         * ID = 300 Brick
+         * ID = 400 Stone
+         * ID = 500 Water
+         * 
+         * 
+         * 
+         * */
+        
+        
+            
+        
+       
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            graphics.PreferredBackBufferWidth = 1300;
+            graphics.PreferredBackBufferHeight = 700;
+            graphics.IsFullScreen = false;
+            graphics.ApplyChanges();
+            Window.Title = "Crash-Dive";
+
+            Connection.reply = "JOIN#";
+           Connection.SendData();
+            Connection.startlistening();
 
             base.Initialize();
+          //  nc.run();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            device = graphics.GraphicsDevice;
+            backgroundTexture = Content.Load<Texture2D>("background");
+            foregroundTexture = Content.Load<Texture2D>("foreground");
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            device = graphics.GraphicsDevice;
+            tankBattle.LoadContent(spriteBatch, this.Content);       
+         }
 
-            // TODO: use this.Content to load your game content here
-        }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
-            // TODO: Add your update logic here
+         //   if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+           //     this.Exit();
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+           // GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-
+            //spriteBatch.Begin();
+          //  DrawScenery();
+         //   spriteBatch.End();
+            tankBattle.Draw(gameTime);
             base.Draw(gameTime);
+        }
+
+        private void DrawScenery()
+        {
+           // int number =10;//should be change according to the number of cells
+           // Cell temp = new Cell(0,0,1); 
+           // Rectangle screenRectangle = new Rectangle(0, 0, 1300, 700);
+           // Rectangle battleRectangle = new Rectangle(50, 50, 650, 650);
+           // Rectangle[,] feild = new Rectangle[number,number]; 
+            
+            //spriteBatch.Draw(backgroundTexture, screenRectangle, Color.White);
+            //spriteBatch.Draw(foregroundTexture, battleRectangle, Color.White);
+           
         }
     }
 }

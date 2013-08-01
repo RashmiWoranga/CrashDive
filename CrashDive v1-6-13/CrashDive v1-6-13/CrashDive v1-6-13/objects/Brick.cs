@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CrashDive_v1_6_13.objects
 {
-    class Brick :Object
+    public class Brick : Cell
     {
         int damage;
         public Brick(int id, int x, int y,int dmg)

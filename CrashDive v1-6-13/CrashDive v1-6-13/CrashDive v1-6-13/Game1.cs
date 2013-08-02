@@ -28,7 +28,7 @@ namespace CrashDive_v1_6_13
         Cell[,] map;
         Player[] players;
         Map battle;
-        int length = 10, count=5; // cell width and number of players
+        int length = 20, count=5; // cell width and number of players
         Network_Communication Connection;
         
         public Game1()

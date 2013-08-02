@@ -17,6 +17,7 @@ namespace CrashDive_v1_6_13.UI
         List<LifePack> Lifepacks2;
         CoinPile tempCoin;
         LifePack tempLife;
+        int me;
         public Reader(Map battle)
         {
             Battle = battle;
@@ -83,7 +84,8 @@ namespace CrashDive_v1_6_13.UI
         {
             //initiate map with the data receieved starting with I
             String[] temp = initiateS.Split(':');
-            int me = int.Parse(temp[1].ToCharArray()[1]+"");
+            me = int.Parse(temp[1].ToCharArray()[1]+"");
+            Battle.setME(me);
             setBricks(temp[2]);
             setStones(temp[3]);
             setWater(temp[4]);
@@ -222,25 +224,42 @@ namespace CrashDive_v1_6_13.UI
             Player player = new Player(px, py, id, direction, shot.Equals(1), health, coin, pointss);
             if (shot.Equals(1))
             {
+                int size = 600 / Battle.getLength();
+                //DateTime t = DateTime.Now();
+               // Bullet b = new Bullet(1000, px, py, direction,DateTime.Now(),size);
+             //   Battle.addBullet(b);
+
+            }
+
+            if (health ==0)
+            {
+                
+
                 if (!Battle.getShotPlayerList().Contains(id))
                 {
-                    CoinPile cpt = new CoinPile(100, px, py, 86400000, coin, this);
+                      CoinPile cpt = new CoinPile(100, px, py, 86400000, coin, this);
                     Battle.addObjects(cpt, px, py);
                     Battle.addPlayer(id);
 
                 }
-               
+
 
             }
-            if (Battle.getObject(px, py) != null)
+            else
             {
-                int t = Battle.getObject(px, py).getID();
-                if ((t == 100) || (t == 200))
+                if (Battle.getObject(px, py) != null)
                 {
-                    Battle.addObjects(null, px, py);
+                    int t = Battle.getObject(px, py).getID();
+                    if ((t == 100) || (t == 200))
+                    {
+                        Battle.addObjects(null, px, py);
+                    }
+
                 }
 
+
             }
+            
             Battle.pdatePlayer(player, id);
         }
         public void removeCoinPiles(CoinPile cp, int x, int y)

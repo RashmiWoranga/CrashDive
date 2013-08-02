@@ -20,7 +20,7 @@ namespace CrashDive_v1_6_13.UI
     public class TankBattle : Microsoft.Xna.Framework.GameComponent
     {
 
-        int count = 5, length = 10,id;
+        int count=5, length,id;
         Map Battle;
         Texture2D backgroundTexture;
         Texture2D foregroundTexture;
@@ -34,6 +34,10 @@ namespace CrashDive_v1_6_13.UI
         Texture2D brick2Texture;
         Texture2D brick3Texture;
         Texture2D tableTexture;
+        Texture2D bullet0Texture;
+        Texture2D bullet1Texture;
+        Texture2D bullet2Texture;
+        Texture2D bullet3Texture;
         SpriteFont font;
        // Boolean[,] isPlayerThere;
         GraphicsDeviceManager graphics;
@@ -48,8 +52,9 @@ namespace CrashDive_v1_6_13.UI
             : base(game)
         {
             Battle  = map;
-            feild = new Rectangle[length, length];
+           // feild = new Rectangle[length, length];
             tanks  = new Texture2D[count, 4];
+            length = Battle.getLength();
             w = 600 / length;
            // isPlayerThere = new Boolean[length, length];
             // TODO: Construct any child components here
@@ -86,6 +91,10 @@ namespace CrashDive_v1_6_13.UI
             coinsTexture = Content.Load<Texture2D>("coins");
             lifeTexture = Content.Load<Texture2D>("life");
             tableTexture = Content.Load<Texture2D>("table");
+            bullet0Texture = Content.Load<Texture2D>("bullet0");
+            bullet1Texture = Content.Load<Texture2D>("bullet1");
+            bullet2Texture = Content.Load<Texture2D>("bullet2");
+            bullet3Texture = Content.Load<Texture2D>("bullet3");
             font = Content.Load<SpriteFont>("MyFont");
             String name;
             for (int i = 0; i < 5; i++)
@@ -260,13 +269,25 @@ namespace CrashDive_v1_6_13.UI
                     y = 200 + i * 30;
                     
                     xx = new Rectangle(temp1.getX() * w+50, temp1.getY() * w+50, w, w);
-                    spriteBatch.DrawString(font, temp1.getPoints().ToString(), new Vector2(912, y), Color.White);
-                    spriteBatch.DrawString(font, temp1.getCoins().ToString()+" $", new Vector2(1020, y), Color.White);
-                    spriteBatch.DrawString(font, temp1.getHealth().ToString()+" %", new Vector2(1125, y), Color.White);
+                    if (Battle.getMe().Equals(i))
+                    {
+                        spriteBatch.DrawString(font, temp1.getPoints().ToString(), new Vector2(912, y), Color.Gold);
+                        spriteBatch.DrawString(font, temp1.getCoins().ToString() + " $", new Vector2(1020, y), Color.Gold);
+                        spriteBatch.DrawString(font, temp1.getHealth().ToString() + " %", new Vector2(1125, y), Color.Gold);
+
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(font, temp1.getPoints().ToString(), new Vector2(912, y), Color.White);
+                        spriteBatch.DrawString(font, temp1.getCoins().ToString() + " $", new Vector2(1020, y), Color.White);
+                        spriteBatch.DrawString(font, temp1.getHealth().ToString() + " %", new Vector2(1125, y), Color.White);
+
+                    }
+                    
                     id = temp1.getID();
                     dirction = temp1.getDirection();
                     //isPlayerThere[temp1.getX(), temp1.getY()] = true;
-                    if (temp1.getShot())
+                    if (temp1.getHealth()==0)
                     {
                        // spriteBatch.Draw(coinsTexture, xx, Color.White);
                         //CoinPile cp = new CoinPile(100,temp1.getX(),temp1.getY(),86400000,temp1.getPoints(),
@@ -317,9 +338,14 @@ namespace CrashDive_v1_6_13.UI
             Rectangle screenRectangle = new Rectangle(0, 0, 1300, 700);
             Rectangle battleRectangle = new Rectangle(50, 50, 600, 600);
             Rectangle tableRectangle = new Rectangle(780, 130, 430, 220);
+          //  Rectangle testRectangle = new Rectangle(100, 100, 60, 60);
             spriteBatch.Draw(backgroundTexture, screenRectangle, Color.White);
             spriteBatch.Draw(foregroundTexture, battleRectangle, Color.White);
             spriteBatch.Draw(tableTexture, tableRectangle, Color.White);
+            //spriteBatch.Draw(bullet0Texture, testRectangle, Color.White);
+            //spriteBatch.Draw(bullet1Texture, testRectangle, Color.White);
+            //spriteBatch.Draw(bullet2Texture, testRectangle, Color.White);
+            //spriteBatch.Draw(bullet3Texture, testRectangle, Color.White);
            // spriteBatch.Draw(brickTexture, feild[6,8], Color.White);
         }
 
@@ -334,13 +360,18 @@ namespace CrashDive_v1_6_13.UI
             spriteBatch.DrawString(font, "Points", new Vector2(915, 150), Color.Green);
             spriteBatch.DrawString(font, "Coins", new Vector2(1025, 150), Color.Green);
             spriteBatch.DrawString(font, "Health", new Vector2(1132, 150), Color.Green);
-            spriteBatch.DrawString(font, "P-0", new Vector2(812, 200), Color.Blue);
+            spriteBatch.DrawString(font, "P-0", new Vector2(812, 200), Color.Red);
             spriteBatch.DrawString(font, "P-1", new Vector2(812, 230), Color.Blue);
-            spriteBatch.DrawString(font, "P-2", new Vector2(812, 260), Color.Blue);
-            spriteBatch.DrawString(font, "P-3", new Vector2(812, 290), Color.Blue);
-            spriteBatch.DrawString(font, "P-4", new Vector2(812, 320), Color.Blue);
+            spriteBatch.DrawString(font, "P-2", new Vector2(812, 260), Color.Yellow);
+            spriteBatch.DrawString(font, "P-3", new Vector2(812, 290), Color.Green);
+            spriteBatch.DrawString(font, "P-4", new Vector2(812, 320), Color.Purple);
 
         }
 
+        public void drawBullet()
+        {
+
+
+        }
     }
 }

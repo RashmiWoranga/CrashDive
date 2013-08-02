@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Network_Communication.cs" />
     <Compile Include="objects\Brick.cs" />
+    <Compile Include="objects\Bullet.cs" />
     <Compile Include="objects\CoinPile.cs" />
     <Compile Include="objects\LifePack.cs" />
     <Compile Include="objects\Map.cs" />

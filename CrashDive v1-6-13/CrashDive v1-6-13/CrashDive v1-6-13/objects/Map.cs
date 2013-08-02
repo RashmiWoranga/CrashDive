@@ -12,6 +12,8 @@ namespace CrashDive_v1_6_13.objects
        List<CoinPile> CoinPiles;
        List<LifePack> Lifepacks;
        List<int> shotPlayers;
+       List<Bullet> bulletList;
+       int Length,me;
         /*
          * ID = 100 Coin pile
          * ID = 200 Life Pack
@@ -29,7 +31,22 @@ namespace CrashDive_v1_6_13.objects
             players = new Player[count];
             CoinPiles = new List<CoinPile>();
             Lifepacks = new List<LifePack>();
+            shotPlayers = new List<int>();
+            bulletList = new List<Bullet>();
+            this.Length = length;
          }
+        public void setME(int Me)
+        {
+            me = Me;
+        }
+        public int getMe()
+        {
+            return me;
+        }
+        public int getLength()
+        {
+            return Length;
+        }
         public void addCoins(CoinPile cp)
         {
             CoinPiles.Add(cp);
@@ -46,6 +63,24 @@ namespace CrashDive_v1_6_13.objects
         public void setCoinList(List<CoinPile> k)
         {
             CoinPiles = k;
+        }
+        public void addBullet(Bullet b)
+        {
+            bulletList.Add(b);
+
+        }
+        public void removeBullet(Bullet b)
+        {
+            bulletList.Remove(b);
+        }
+        public List<Bullet> getBulletList()
+        {
+            return bulletList;
+        }
+        public void setBulletList(List<Bullet> b)
+        {
+
+            bulletList = b;
         }
         public List<int> getShotPlayerList()
         {
